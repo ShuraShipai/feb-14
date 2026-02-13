@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Made For You 💌</title>
     <link rel="icon" type="image/png" href="holding_hands.png">
 
@@ -51,6 +51,11 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
+            /* Safe area for notched devices */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
         }
         
         /* ===== FLOATING PARTICLES ===== */
@@ -468,7 +473,7 @@
             border-left-color: var(--lavender);
         }
         
-        /* ===== LETTER - FULL PAGE STYLE ===== */
+        /* ===== LETTER - CLOSED ENVELOPE STATE ===== */
         .letter-trigger {
             position: relative;
             width: 400px;
@@ -510,7 +515,7 @@
             font-weight: 600;
         }
         
-        /* Letter Pop-Up Modal - CUTE SMALL POPUP */
+        /* ===== LETTER MODAL - SCROLLABLE POPUP ===== */
         .letter-modal {
             position: fixed;
             top: 0;
@@ -539,6 +544,9 @@
             border-radius: 30px;
             max-width: 550px;
             width: 90%;
+            /* Scrollable letter - fixed max height */
+            max-height: 85vh;
+            overflow-y: auto;
             box-shadow: 0 20px 60px rgba(255, 179, 198, 0.4);
             border: 4px solid var(--soft-red);
             transform: scale(0.7) rotate(-5deg);
@@ -551,9 +559,10 @@
         }
         
         .letter-close {
-            position: absolute;
+            position: sticky;
             top: 15px;
             right: 15px;
+            float: right;
             background: var(--soft-red);
             color: white;
             border: none;
@@ -567,6 +576,7 @@
             font-family: var(--font-body);
             box-shadow: 0 4px 15px rgba(255, 179, 198, 0.4);
             z-index: 1;
+            margin-bottom: 20px;
         }
         
         .letter-close:hover {
@@ -587,6 +597,7 @@
             border-radius: 20px;
             box-shadow: inset 0 2px 15px rgba(255, 179, 198, 0.15);
             border: 3px dashed rgba(255, 179, 198, 0.4);
+            clear: both;
         }
         
         .letter-text::before {
@@ -1359,85 +1370,267 @@
             box-shadow: 0 4px 16px rgba(255, 179, 198, 0.4);
         }
         
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 992px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 768px) {
+        /* ===== MOBILE RESPONSIVE (430px and below) ===== */
+        @media (max-width: 430px) {
+            /* Stickers - smaller and repositioned */
             .sticker {
-                width: 95px;
-                height: 95px;
+                width: 80px;
+                height: 80px;
             }
             
             .sticker-girl {
-                left: 3%;
+                left: 2%;
+                top: 8%;
+            }
+            
+            .sticker-boy {
+                right: 2%;
+                top: 8%;
+            }
+            
+            /* Corner logo smaller */
+            .corner-logo {
+                width: 50px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            /* Floating assistant smaller */
+            .floating-assistant {
+                width: 70px;
+                height: 70px;
+                bottom: 80px;
+                right: 15px;
+            }
+            
+            .speech-bubble {
+                font-size: 12px;
+                padding: 10px 14px;
+                bottom: 75px;
+                max-width: 200px;
+                white-space: normal;
+            }
+            
+            /* Buttons touch-friendly */
+            .btn {
+                padding: 18px 40px;
+                font-size: 1.4rem;
+                min-width: 140px;
+            }
+            
+            .button-container {
+                gap: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            /* Music toggle */
+            .music-toggle {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                right: 15px;
+                font-size: 1.4rem;
+            }
+            
+            /* Extra love button */
+            .extra-love-btn {
+                bottom: 80px;
+                left: 15px;
+                font-size: 0.9rem;
+                padding: 12px 24px;
+            }
+            
+            /* Extra love stickers smaller */
+            .extra-love-stickers img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            /* Letter popup - more width on mobile */
+            .letter-content-box {
+                padding: 35px 25px 50px 25px;
+                max-width: 95%;
+                max-height: 80vh;
+            }
+            
+            .letter-text {
+                font-size: 1.2rem;
+                padding: 20px 15px;
+                line-height: 1.8;
+            }
+            
+            .letter-signature {
+                font-size: 1.5rem;
+                margin-top: 25px;
+            }
+            
+            .letter-close {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+                top: 10px;
+                right: 10px;
+            }
+            
+            /* Gallery - single column */
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 15px;
+            }
+            
+            /* Coupons - single column */
+            .coupons-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            /* Quiz cards */
+            .quiz-menu {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .quiz-screen {
+                padding: 30px 20px;
+            }
+            
+            .quiz-question-text {
+                font-size: 1.4rem;
+            }
+            
+            .quiz-option {
+                font-size: 1rem;
+                padding: 18px;
+            }
+            
+            .quiz-navigation {
+                flex-direction: column;
+            }
+            
+            .quiz-btn {
+                width: 100%;
+            }
+            
+            /* Photo modal */
+            .photo-modal-content {
+                padding: 30px 20px 60px 20px;
+            }
+            
+            .photo-modal-img {
+                height: 250px;
+            }
+            
+            /* Counter */
+            .love-counter {
+                padding: 40px 25px;
+            }
+            
+            .counter-label {
+                font-size: 1.4rem;
+            }
+            
+            .counter-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            /* Ending stickers */
+            .ending-stickers {
+                width: 280px;
+                height: 150px;
+            }
+            
+            .ending-sticker {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .kiss-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .heart-between {
+                font-size: 2.5rem;
+            }
+            
+            /* Sections padding */
+            section {
+                padding: 60px 15px;
+            }
+            
+            /* Popup */
+            .popup {
+                padding: 30px 25px;
+                max-width: 85%;
+            }
+            
+            .popup-text {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* ===== TABLET RESPONSIVE (431px - 768px) ===== */
+        @media (min-width: 431px) and (max-width: 768px) {
+            .sticker {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .sticker-girl {
+                left: 4%;
                 top: 10%;
             }
             
             .sticker-boy {
-                right: 3%;
+                right: 4%;
                 top: 10%;
             }
             
             .floating-assistant {
-                width: 75px;
-                height: 75px;
+                width: 100px;
+                height: 100px;
                 bottom: 90px;
-                right: 15px;
             }
             
             .btn {
-                padding: 18px 42px;
+                padding: 20px 48px;
                 font-size: 1.5rem;
             }
             
             .extra-love-btn {
                 bottom: 90px;
-                left: 15px;
-                font-size: 0.95rem;
-                padding: 14px 26px;
-            }
-
-            .letter-content-box {
-                padding: 40px 25px;
-            }
-
-            .letter-text {
-                font-size: 1.3rem;
-                padding: 25px 15px;
+                left: 20px;
             }
             
-            .letter-signature {
-                font-size: 1.6rem;
+            .letter-content-box {
+                max-height: 82vh;
             }
             
             .gallery-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 35px;
             }
         }
         
-        @media (max-width: 480px) {
-            .sticker {
-                width: 75px;
-                height: 75px;
-            }
-            
-            .extra-love-stickers img {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .letter-text {
-                font-size: 1.2rem;
-                line-height: 2;
-            }
-            
-            .letter-signature {
-                font-size: 1.4rem;
-            }
+        /* ===== SMOOTH SCROLLING FOR LETTER ===== */
+        .letter-content-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .letter-content-box::-webkit-scrollbar-track {
+            background: rgba(255, 179, 198, 0.1);
+            border-radius: 10px;
+        }
+        
+        .letter-content-box::-webkit-scrollbar-thumb {
+            background: var(--soft-red);
+            border-radius: 10px;
+        }
+        
+        .letter-content-box::-webkit-scrollbar-thumb:hover {
+            background: #ff9eb5;
         }
     </style>
 </head>
@@ -1512,8 +1705,8 @@
         
         <!-- Letter Modal -->
         <div class="letter-modal" id="letterModal">
-            <button class="letter-close" id="letterClose">×</button>
             <div class="letter-content-box">
+                <button class="letter-close" id="letterClose">×</button>
                 <div class="letter-text" id="letterText"></div>
                 <div class="letter-signature">Forever yours,<br>From,<br>Mrs Firas💕</div>
             </div>
@@ -1620,9 +1813,9 @@
         
         // Edit your letter content here:
         const LETTER_CONTENT = `
-Ahhhhhhhha, the first time when you asked me who I was, it started with “a well-wisher.” At that time, I never thought we would even end up together. Looking back, everything felt impossible… even us being together felt impossible. But now we have sooo manyyy memoriess togetherrrr.
+Ahhhhhhhha, the first time when you asked me who I was, it started with "a well-wisher." At that time, I never thought we would even end up together. Looking back, everything felt impossible… even us being together felt impossible. But now we have sooo manyyy memoriess togetherrrr.
 So if I had to start from somewhere, maybe from Eid. Then came the coding club time, then sneaking out a few times, uhhmmm… then came the Mumbai trip. It was the best visit to Mumbai until now which I had experienced.
-The morning kisses, making tea together (it was bitter though), random kisses during the daytime, the IKEA visit, Marine Drive walks, the train journey......our trip didn’t end there though. Ahhhh… later after this, we went through a lot, telling our families.
+The morning kisses, making tea together (it was bitter though), random kisses during the daytime, the IKEA visit, Marine Drive walks, the train journey......our trip didn't end there though. Ahhhh… later after this, we went through a lot, telling our families.
 Alhamdulillahhh, I guess I can technically say I am your fiancée now....ahhhhhhhhhh I loveeeeeeee Youuuuuuuuu Soooooo Muchhhhhhhhh💖`
 
         // Edit your quiz questions here:
